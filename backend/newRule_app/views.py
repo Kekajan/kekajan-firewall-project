@@ -5,19 +5,6 @@ from django.conf import settings
 import requests
 from xml.etree.ElementTree import Element, SubElement, tostring
 
-# def add_rule(request):
-#     data = request.data
-#     rule_name = data.get("rule_name")
-#     source = data.get("source")
-#     destination = data.get("destination")
-#     services = data.get("services", ["tcp-80", "tcp-443"])
-
-#     if not rule_name or not source or not destination:
-#         return Response({"error": "Missing required parameters"}, status=400)
-
-#     result = create_security_rule(rule_name, source, destination, services)
-#     return Response(result)
-
 
 class RuleView(APIView):
     def get(self,request):
@@ -43,7 +30,6 @@ class RuleView(APIView):
                 return render(request, 'home.html', attributes)
 
 
-    
     def create_security_rule(self,rule_name, source, destination):
         BASE_URL = f"https://{settings.FIREWALL_IP}/api"
         api_key = settings.API_KEY
@@ -86,4 +72,3 @@ class RuleView(APIView):
             print(commit_response,"bbbbbbbbb")
         except requests.exceptions.RequestException as e:
             print("An error occurred:", e)
-

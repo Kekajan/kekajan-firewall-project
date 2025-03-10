@@ -14,14 +14,12 @@ class RuleView(APIView):
     def post(self,request):
         attributes = {}
         secret_key = settings.FIREWALL_IP
-        print(secret_key)
 
         if request.method == 'POST':
             data = request.POST
             rule_name = data.get("rule_name")
             source = data.get("source")
             destination = data.get("destination")
-            print(rule_name, source, destination)
             try:
                 self.create_security_rule(rule_name, source, destination)
                 return render(request, 'home.html', attributes)
@@ -63,7 +61,7 @@ class RuleView(APIView):
 
 
         try:
-            print(BASE_URL,"gggggggggggggggg", set_url)
+            # print(BASE_URL,"gggggggggggggggg", set_url)
             response = requests.post(set_url, verify=True)
             print(response,"aaaaaaa")
             print("Add Rule Response:", response.text)
